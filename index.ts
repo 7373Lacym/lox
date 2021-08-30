@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as readline  from 'readline';
 
+import {scanTokens, Scanner} from './Scanner'
+
 const reader = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout
@@ -9,7 +11,11 @@ const reader = readline.createInterface({
 let hadError = false
 
 function run(file: string) {
-	console.log(file)
+	const scanner = Scanner(file);
+	const tokens = scanTokens(scanner);
+
+	// For now, just print the tokens.
+	console.log(tokens)
 }
 
 function runFile(file: string){
@@ -36,6 +42,7 @@ function report(line: number, where: string, message: string) {
 }
 
 function main() {
+	console.log(scanTokens)
 	if(process.argv.length > 2){
 		console.log(process.argv)
 		console.log("Usage: jlox [script]")

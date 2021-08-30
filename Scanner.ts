@@ -4,7 +4,7 @@ import {error} from "./index";
 
 type Scanner = {
   __Type: "Scanner",
-  tokens ?:  Token[]
+  tokens :  Token[]
   source : string
   start: number
   current : number
@@ -17,7 +17,8 @@ export const Scanner = ( source: string) : Scanner => {
     line: 1,
     start: 0,
     __Type: "Scanner",
-    source
+    source,
+    tokens: []
   }
 }
 
@@ -98,10 +99,51 @@ const scanToken = (scanner : Scanner) => {
     default :
       if(isDigit(c)) {
         number(scanner)
-      } else {
+      }
+      if(isAlpha(c)){
+        identifier(scanner)
+      }
+        else {
         error(scanner.line, "Unexpected Character")
       }
   }
+}
+
+const identifier = (scanner : Scanner) => {
+  while(isAlphaNumeric(peek(scanner))) advance(scanner)
+  const text = scanner.source.substring(scanner.start, scanner.current)
+  let tokenType = KEYWORDS.get(text)
+  if(!tokenType) tokenType = TokenType.IDENTIFIER
+  addToken(tokenType,{}, scanner)
+}
+
+const KEYWORDS = new Map()
+
+KEYWORDS.set("and",    TokenType.AND);
+KEYWORDS.set("class",  TokenType.CLASS);
+KEYWORDS.set("else",   TokenType.ELSE);
+KEYWORDS.set("false",  TokenType.FALSE);
+KEYWORDS.set("for",    TokenType.FOR);
+KEYWORDS.set("fun",    TokenType.FUN);
+KEYWORDS.set("if",     TokenType.IF);
+KEYWORDS.set("nil",    TokenType.NIL);
+KEYWORDS.set("or",     TokenType.OR);
+KEYWORDS.set("print",  TokenType.PRINT);
+KEYWORDS.set("return", TokenType.RETURN);
+KEYWORDS.set("super",  TokenType.SUPER);
+KEYWORDS.set("this",   TokenType.THIS);
+KEYWORDS.set("true",   TokenType.TRUE);
+KEYWORDS.set("var",    TokenType.VAR);
+KEYWORDS.set("while",  TokenType.WHILE);
+
+const isAlpha = (c : string) => {
+  return (c >= 'a' && c <= 'z') ||
+    (c >= 'A' && c <= 'Z') ||
+    c == '_';
+}
+
+const isAlphaNumeric = (c: string) => {
+    return isAlpha(c) || isDigit(c);
 }
 
 const isDigit = (c : string) => {

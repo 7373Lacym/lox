@@ -3,13 +3,17 @@ exports.__esModule = true;
 exports.error = void 0;
 var fs = require("fs");
 var readline = require("readline");
+var Scanner_1 = require("./Scanner");
 var reader = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 var hadError = false;
 function run(file) {
-    console.log(file);
+    var scanner = (0, Scanner_1.Scanner)(file);
+    var tokens = (0, Scanner_1.scanTokens)(scanner);
+    // For now, just print the tokens.
+    console.log(tokens);
 }
 function runFile(file) {
     if (hadError)
@@ -32,6 +36,7 @@ function report(line, where, message) {
     hadError = true;
 }
 function main() {
+    console.log(Scanner_1.scanTokens);
     if (process.argv.length > 2) {
         console.log(process.argv);
         console.log("Usage: jlox [script]");
