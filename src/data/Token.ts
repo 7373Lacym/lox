@@ -1,11 +1,4 @@
-import {TokenType} from "./types/Token";
-
-export type Token = {
-  type : TokenType
-  lexeme: string
-  literal : {}
-  line : number
-}
+import {TokenType} from "../types/Token";
 
 export const Token = (type : TokenType, lexeme : string, literal: {}, line: number) => {
   return {

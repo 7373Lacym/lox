@@ -1,10 +1,10 @@
 "use strict";
 exports.__esModule = true;
-exports.addToken = exports.scanTokens = exports.Scanner = void 0;
-var Token_1 = require("./Token");
-var Token_2 = require("./types/Token");
-var index_1 = require("./index");
-var Scanner = function (source) {
+exports.addToken = exports.scanTokens = exports.scanner = void 0;
+var Token_1 = require("../../Token");
+var Token_2 = require("../types/Token");
+var index_1 = require("../../index");
+var scanner = function (source) {
     return {
         current: 0,
         line: 1,
@@ -14,7 +14,7 @@ var Scanner = function (source) {
         tokens: []
     };
 };
-exports.Scanner = Scanner;
+exports.scanner = scanner;
 var isAtEnd = function (scanner) {
     return scanner.current >= scanner.source.length;
 };

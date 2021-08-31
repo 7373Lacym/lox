@@ -1,17 +1,9 @@
-import {Token} from "./Token";
-import {TokenType} from "./types/Token"
-import {error} from "./index";
+import {Token} from "../../Token";
+import {TokenType} from "../types/Token"
+import {error} from "../../index";
+import type {Scanner} from '../types/Scanner'
 
-type Scanner = {
-  __Type: "Scanner",
-  tokens :  Token[]
-  source : string
-  start: number
-  current : number
-  line : number
-}
-
-export const Scanner = ( source: string) : Scanner => {
+export const scanner = ( source: string) : Scanner => {
   return {
     current: 0,
     line: 1,

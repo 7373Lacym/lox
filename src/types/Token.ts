@@ -19,3 +19,11 @@ export enum TokenType {
   EOF
 
 }
+
+export type Token = {
+  type : TokenType
+  lexeme: string
+  literal : {}
+  line : number
+}
+
