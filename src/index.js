@@ -44,7 +44,6 @@ function main() {
         return 64;
     }
     else if (process.argv.length == 2) {
-        console.log('here');
         runFile(process.argv[1]);
         process.exit(0);
         return 1;
